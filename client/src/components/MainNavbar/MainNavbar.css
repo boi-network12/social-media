@@ -1,0 +1,179 @@
+.MainNavbarContainer {
+    display: flex;
+    width: 100%;
+    position: fixed;
+    background-color: #fff;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5%;
+    height: 65px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.MainNavbarContainer .MainNavbarLeft {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+}
+
+.MainNavbarContainer .MainNavbarLeft a img {
+    width: 45px;
+    height: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.MainNavbarContainer .MainNavbarLeft .SearchContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background: #ddd;
+    padding: 10px;
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.SearchContainer.focused {
+    background: #f1f1f1;
+    /* Lighter background when focused */
+    border-radius: 20px;
+    width: 230px;
+    /* Adjust width when focused */
+}
+
+.MainNavbarContainer .MainNavbarLeft .SearchContainer input[type="text"] {
+    all: unset;
+    width: 100%;
+    padding: 0 10px;
+    font-size: 14px;
+}
+
+.MainNavbarContainer .MainNavbarLeft .SearchSuggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-top: 5px;
+    display: block;
+    font-size: 12px;
+    z-index: 1000;
+    color: #555;
+}
+
+.SearchSuggestions p {
+    margin: 0;
+}
+
+.MainNavbarContainer .MainNavbarCenter.inMobile {
+    display: none;
+}
+
+.MainNavbarContainer .MainNavbarCenter {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.MainNavbarContainer .MainNavbarCenter a {
+    cursor: pointer;
+    background-color: transparent;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    border-radius: 10px;
+    transition: background .3s ease;
+
+    &:hover {
+        background: #f1f1f1;
+    }
+}
+
+.MainNavbarContainer .MainNavbarCenter a.NavLink {
+    font-size: 25px;
+    color: #333;
+}
+
+.NavLink.activeNavLink {
+    position: relative;
+
+    &::after {
+        content: '';
+        background: #1877f2;
+        height: 3px;
+        width: 60px;
+        position: absolute;
+        bottom: -10px;
+    }
+}
+
+
+.MainNavbarContainer .MainNavbarRight {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.MainNavbarContainer .MainNavbarRight p {
+    background-color: #f1f1f1;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+/* Mobile devices */
+@media (max-width: 767px) {
+
+    /* Your mobile-specific styles go here */
+    .MainNavbarContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100px;
+    }
+
+    .MainNavbarContainer .MainNavbarLeft {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 4px 10px;
+        justify-content: space-between;
+    }
+
+    .MainNavbarContainer .MainNavbarCenter {
+        display: none;
+    }
+
+    .MainNavbarContainer .MainNavbarCenter.inMobile {
+        display: flex;
+    }
+
+    .MainNavbarContainer .MainNavbarRight {
+        display: none;
+    }
+}
+
+/* Tablet devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Your tablet-specific styles go here */
+}

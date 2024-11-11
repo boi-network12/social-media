@@ -1,0 +1,295 @@
+.StoriesComponentContainer {
+    width: 100%;
+    max-width: 600px;
+    /* Adjust width as needed */
+    overflow: hidden;
+    position: relative;
+    padding: 0 10px;
+}
+
+
+.StoriesComponentContainer .StoriesComponentWrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin: 20px 0;
+    scroll-behavior: smooth;
+    overflow: hidden;
+    width: 100%;
+}
+
+.StoriesComponentWrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+/* Navigation Arrows (Visible only on larger screens) */
+.navigation-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 30px;
+    color: #333;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    padding: 5px;
+    display: none;
+    z-index: 1;
+}
+
+.navigation-arrow.left {
+    left: 15px;
+}
+
+.navigation-arrow.right {
+    right: 15px;
+}
+
+.StoriesComponentWrapper::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.StoriesComponentWrapper .currentUserDiv {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: 250px;
+    width: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: scale .3s ease;
+    background-color: #fff;
+    flex-shrink: 0;
+
+    &:hover img {
+        scale: 1.05;
+    }
+}
+
+.StoriesComponentWrapper .currentUserDiv>img {
+    width: 100%;
+    height: 75%;
+    object-fit: cover;
+}
+
+.StoriesComponentWrapper .currentUserDiv>p {
+    height: 25%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    position: relative;
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 40;
+}
+
+.StoriesComponentWrapper .currentUserDiv>p span {
+    background-color: #1877f2;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    top: -15px;
+}
+
+.StoriesComponentWrapper .otherUserDiv {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    height: 250px;
+    width: 150px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: scale .3s ease;
+    background-color: #fff;
+    position: relative;
+    flex-shrink: 0;
+
+    &:hover .storiesContent {
+        scale: 1.05;
+    }
+}
+
+.StoriesComponentWrapper .otherUserDiv>.storiesContent {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.StoriesComponentWrapper .otherUserDiv>.otherUserDivAbsolute {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.StoriesComponentWrapper .otherUserDiv>.otherUserDivAbsolute img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.StoriesComponentWrapper .otherUserDiv>.otherUserDivAbsolute p {
+    margin-bottom: 20px;
+    color: #fff;
+    margin-left: 10px;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    /* Adds a blur effect */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+
+.modalContent {
+    background-color: #fff;
+    width: 95%;
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 20px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 75%;
+}
+
+.modalCloseButton {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    padding: 5px;
+    transition: background-color 0.3s;
+    display: none;
+}
+
+.modalCloseButton:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.modalContent img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.modalContent p {
+    font-size: 18px;
+    color: #fff;
+    margin: 10px 0 0;
+    text-align: center;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    position: absolute;
+    z-index: 999;
+    bottom: 50px;
+    left: 30px;
+}
+
+.modalNavigation {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+.modalNavigation.left {
+    left: 0;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.modalNavigation.right {
+    right: 0;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+/* .modalNavigation:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+} */
+
+.modalNavigation.left::before,
+.modalNavigation.right::before {
+    content: "";
+    font-size: 32px;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.modalNavigation.left::before {
+    content: "◀";
+    left: 10px;
+}
+
+.modalNavigation.right::before {
+    content: "▶";
+    right: 10px;
+}
+
+
+
+/* Show arrows on desktop */
+@media (min-width: 768px) {
+    .navigation-arrow {
+        display: flex;
+    }
+}
+
+
+@media (max-width: 767px) {
+
+    /* Your mobile-specific styles go here */
+    .StoriesComponentWrapper .otherUserDiv,
+    .StoriesComponentWrapper .currentUserDiv {
+        width: 100px;
+        height: 180px;
+    }
+
+}
+
+/* Tablet devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Your tablet-specific styles go here */
+
+}

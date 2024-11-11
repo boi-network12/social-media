@@ -1,0 +1,49 @@
+.MainHomeWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 80px;
+    background-color: #f1f1f1;
+}
+
+.MainHomeWrapper .MainHomeCenterContainer {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.MainHomeWrapper .MainHomeLeftContainer,
+.MainHomeWrapper .MainHomeRightContainer {
+    width: 70%;
+}
+
+/* Mobile devices */
+@media (max-width: 767px) {
+
+    /* Your mobile-specific styles go here */
+    .MainHomeWrapper {
+        padding-top: 100px;
+    }
+
+    .MainHomeWrapper .MainHomeLeftContainer,
+    .MainHomeWrapper .MainHomeRightContainer {
+        display: none;
+    }
+
+}
+
+/* Tablet devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Your tablet-specific styles go here */
+    .MainHomeWrapper .MainHomeLeftContainer {
+        display: none;
+    }
+
+    .MainHomeWrapper .MainHomeRightContainer {
+        width: 65%;
+    }
+}

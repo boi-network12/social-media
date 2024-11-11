@@ -1,0 +1,94 @@
+.FriendShowWrapper {
+    position: fixed;
+    width: 100%;
+    max-width: 500px;
+    overflow-y: auto;
+    padding: 0 20px;
+}
+
+.FriendShowWrapper .friendRequestReview {
+    width: 100%;
+}
+
+.FriendShowWrapper .friendRequestReview>h1 {
+    text-transform: capitalize;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    width: 100%;
+    font-size: 16px;
+}
+
+.FriendShowWrapper .friendRequestReview>.friendRequestDisplay {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+    transition: background .3s ease;
+    border-radius: 5px;
+    gap: 10px;
+    padding: 5px;
+
+    &:hover {
+        background: #ddd;
+    }
+}
+
+.FriendShowWrapper .friendRequestReview>.friendRequestDisplay>img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.FriendShowWrapper .friendRequestReview>.friendRequestDisplay>.writtenInfoFriendRequest {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    width: 100%;
+}
+
+.FriendShowWrapper .friendRequestReview>.friendRequestDisplay>.writtenInfoFriendRequest h5 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    & span {
+        font-weight: 300;
+    }
+}
+
+.FriendShowWrapper .friendRequestReview>.friendRequestDisplay>.writtenInfoFriendRequest>p {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+    width: 100%;
+
+    & button {
+        height: 30px;
+        text-transform: capitalize;
+        border: none;
+        cursor: pointer;
+        width: 80px;
+        border-radius: 5px;
+    }
+}
+
+@media (max-width: 767px) {
+
+    /* Your mobile-specific styles go here */
+
+}
+
+/* Tablet devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Your tablet-specific styles go here */
+    .FriendShowWrapper {
+        max-width: 350px;
+    }
+}
