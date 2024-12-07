@@ -45,3 +45,23 @@ exports.markAsRead = async (req, res) => {
         return res.status(500).json({ message: 'Error marking notification as read' });
     }
 }
+
+const deleteOldNotifications = async () => {
+    try {
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+        // Find and delete notifications older than 7 days
+        const result = await Notification.deleteMany({
+            timestamp: {
+                $lt: sevenDaysAgo
+            }
+        })
+
+        console.log(`${result.deletedCount} notifications deleted that were older than 7 days.`);
+    } catch (error) {
+        console.error('Error deleting old notifications:', error);
+    }
+}
+
+setInterval(deleteOldNotifications, 24 * 60 * 60 * 1000);

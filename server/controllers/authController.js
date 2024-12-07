@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const { v4: uuidv4 } = require("uuid");
 const { createNotification } = require("./NotificationController");
 
+
 // Register a new User 
 exports.registerUser = async (req, res) => {
     try {
