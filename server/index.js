@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const authRoutes = require('./routes/auth');
 const profilePicture = require('./routes/profilePicture');
+const notificationRoutes = require('./routes/Notification');
 const cors = require("cors");
 
 dotenv.config();
@@ -21,6 +22,7 @@ app.use(express.json());
 //Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/profile-picture', profilePicture)
+app.use("/api/notifications", notificationRoutes)
 
 // start server
 const PORT = process.env.PORT || 5000;

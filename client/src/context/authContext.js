@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import Loading from '../Loading/Loading'; // Import Loading Component
+import config from "../config";
 
 // create Context
 export const AuthContext = createContext();
 
-const SERVER_URI = "http://192.168.162.4:5000/api";
+
 
 // Provider component
 export const AuthProvider = ({ children }) => {
@@ -35,7 +36,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`${SERVER_URI}/auth/register`, {
+            const response = await fetch(`${config.SERVER_URI}/auth/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -78,7 +79,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
 
         try {
-            const response = await fetch(`${SERVER_URI}/auth/login`, {
+            const response = await fetch(`${config.SERVER_URI}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

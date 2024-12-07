@@ -4,6 +4,9 @@ import FacebookLogo from "../../assets/facebook-logo.png";
 import { BiSearch, BiHome, BiTv, BiStore, BiGroup, BiGame, BiMessage, BiMenu, BiBell, BiUser } from "react-icons/bi";
 import { FaBell, FaTh } from "react-icons/fa";
 import "./MainNavbar.css";
+import NotificationDropdown from '../../DropDown/DropdownNotification/DropdownNotification';
+import MessageDropdown from '../../DropDown/MessageDropdown/MessageDropdown';
+import MoreDropdown from '../../DropDown/MoreDropdown/MoreDropdown';
 
 
 const MainNavbar = () => {
@@ -11,6 +14,17 @@ const MainNavbar = () => {
     const [searchQuery, setSearchQuery] = useState("");
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [suggestions, setSuggestions] = useState([]);
+    const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+    const [isMessageVisible, setIsMessageVisible] = useState(false);
+    const [isMoreVisible, setIsMoreVisible] = useState(false);
+
+
+
+    const toggleNotificationVisibility = () => setIsNotificationVisible(!isNotificationVisible);
+    const toggleMessageVisibility = () => setIsMessageVisible(!isMessageVisible);
+    const toggleMoreVisibility = () => setIsMoreVisible(!isMoreVisible);
+
+
 
     const handleSearchFocus = () => setSearchFocus(true);
     const handleSearchBlur = () => setSearchFocus(false);
@@ -133,10 +147,14 @@ const MainNavbar = () => {
             </div>
 
             <div className="MainNavbarRight">
-                <p><FaTh size="20px" color='#333' /></p>
-                <p><BiMessage size="20px" color='#333' /></p>
-                <p><FaBell size="20px" color='#333' /></p>
+                <p onClick={toggleMoreVisibility}><FaTh size="20px" color='#333' /></p>
+                <p onClick={toggleMessageVisibility}><BiMessage size="20px" color='#333' /></p>
+                <p onClick={toggleNotificationVisibility}><FaBell size="20px" color='#333' /></p>
             </div>
+
+            {isNotificationVisible && <NotificationDropdown />}
+            {isMessageVisible && <MessageDropdown />}
+            {isMoreVisible && <MoreDropdown />}
         </div>
     );
 };

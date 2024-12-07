@@ -1,7 +1,8 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { v4: uuidv4 } = require("uuid")
+const { v4: uuidv4 } = require("uuid");
+const { createNotification } = require("./NotificationController");
 
 // Register a new User 
 exports.registerUser = async (req, res) => {
@@ -46,6 +47,13 @@ exports.registerUser = async (req, res) => {
 
         // save the new user to the database
         const savedUser = await newUser.save();
+
+        // create a notification for the user
+        const appName = "MyApp";
+        const notificationMessage = `You have created your account on ${appName}`;
+        const notificationTitle = "Welcome to MyApp";  // Include a title for the notification
+        await createNotification(savedUser._id, notificationMessage, notificationTitle);
+
 
         // Generate a JWT token for the user 
         const token = jwt.sign({
@@ -113,6 +121,11 @@ exports.loginUser = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({ message: "Invalid password." });
         }
+
+        // create a notification for the user on login
+        const notificationMessage = `Welcome back to MyApp!`;
+        const notificationTitle = "Login Successful";
+        await createNotification(user._id, notificationMessage, notificationTitle);
 
         // Generate a JWT token for the user
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
