@@ -1,0 +1,181 @@
+const User = require("../models/User");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid")
+
+// Register a new User 
+exports.registerUser = async (req, res) => {
+    try {
+        const { firstName, lastName, middleName, emailOrNumber, password, gender, dateOfBirth } = req.body;
+
+        // Determine if emailOrNumber is an email or a number
+        const isEmail = emailOrNumber.includes('@');
+        let userQuery = {};
+
+        if (isEmail) {
+            userQuery.email = emailOrNumber;
+        } else {
+            userQuery.number = emailOrNumber;
+        }
+
+        // check if email already exists
+        const existingUser = await User.findOne(userQuery);
+        if (existingUser) {
+            return res.status(400).json({ message: "Email already exists." });
+        }
+
+        // Generate a hashed password
+        const hashPassword = await bcrypt.hash(password, 10);
+
+        // Generate a unique username based on user ID
+        const uid = uuidv4();
+        const username = `user${uid}`
+
+        // create a new User instance 
+        const newUser = new User({
+            firstName,
+            lastName,
+            middleName,
+            email: isEmail ? emailOrNumber : undefined,
+            password: hashPassword,
+            number: !isEmail ? emailOrNumber : undefined,
+            username,
+            gender,
+            dateOfBirth,
+        });
+
+        // save the new user to the database
+        const savedUser = await newUser.save();
+
+        // Generate a JWT token for the user 
+        const token = jwt.sign({
+            userId: savedUser._id
+        },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1d"
+            }
+        );
+
+        res.status(201).json({
+            message: "User register successfully",
+            token,
+            user: {
+                id: savedUser._id,
+                username: savedUser.username,
+                firstName: savedUser.firstName,
+                lastName: savedUser.lastName,
+                email: savedUser.email,
+                profilePicture: savedUser.profilePicture,
+                bio: savedUser.bio,
+                location: savedUser.location,
+                gender: savedUser.gender,
+                dateOfBirth: savedUser.dateOfBirth,
+                role: savedUser.role,
+                status: savedUser.status,
+                privacy: savedUser.privacy
+            }
+        });
+
+    } catch (error) {
+        console.error("Registration Error", error);
+        res.status(500).json({
+            message: "An error occurred while registering the user"
+        })
+    }
+}
+
+// Login an existing user
+exports.loginUser = async (req, res) => {
+    try {
+        const { emailOrNumber, password } = req.body;
+
+        // Check if emailOrNumber is an email or a number
+        const isEmail = emailOrNumber.includes('@');
+        let userQuery = {};
+
+        if (isEmail) {
+            userQuery.email = emailOrNumber;  // If it's an email, search by email
+        } else {
+            userQuery.number = emailOrNumber;  // If it's a number, search by number
+        }
+
+        // Find the user by email or number
+        const user = await User.findOne(userQuery);
+
+        // If user is not found, return error
+        if (!user) {
+            return res.status(400).json({ message: "Invalid Login credentials. Please try again." });
+        }
+
+        // Compare password with the hashed password in the database
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(400).json({ message: "Invalid password." });
+        }
+
+        // Generate a JWT token for the user
+        const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+
+        // Send response with user details and token
+        res.status(200).json({
+            message: "Login successful",
+            token,
+            user: {
+                id: user._id,
+                username: user.username,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                profilePicture: user.profilePicture,
+                bio: user.bio,
+                location: user.location,
+                gender: user.gender,
+                dateOfBirth: user.dateOfBirth,
+                role: user.role,
+                status: user.status,
+                privacy: user.privacy
+            }
+        });
+
+    } catch (error) {
+        console.error("Login Error", error);
+        res.status(500).json({ message: "An error occurred during login." });
+    }
+};
+
+// update profilePicture
+exports.updateProfilePicture = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const newProfilePictureUrl = req.body.newProfilePictureUrl;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        // save the new profile picture and store the old ones
+        user.profilePicture.push({
+            type: user.profilePicture,
+            timestamp: Date.now(),
+        });
+        user.profilePicture = newProfilePictureUrl;
+
+        await user.save();
+
+        res.status(200).json({
+            message: "Profile picture updated successfully",
+            user: {
+                profilePicture: user.profilePicture,
+                profilePictureHistory: user.profilePictureHistory,
+            }
+        });
+
+    } catch (error) {
+        console.error("Error updating profile picture", error);
+        res.status(500).json({ message: "An error occurred while updating the profile picture" });
+    }
+}

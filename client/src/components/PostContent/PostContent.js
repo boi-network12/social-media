@@ -2,15 +2,19 @@ import React from 'react'
 import humanAvatar from "../../assets/avatar.jpg"
 import { BiHappyAlt, BiImageAlt, BiPhotoAlbum, BiVideo } from "react-icons/bi"
 import "./PostContent.css"
+import { useAuth } from '../../context/authContext'
 
 const PostContent = () => {
+    const { user } = useAuth();
+
+
     return (
         <div className='PostContentWrapper'>
             <div className='PostContentTopDiv'>
                 <img src={humanAvatar} alt="" />
                 <input
                     type="text"
-                    placeholder="what's on your mind, kam"
+                    placeholder={`what's on your mind, ${user?.firstName || 'user'}`}
                 />
                 <BiImageAlt size={30} color='#333' className='PostImageIcon' />
             </div>

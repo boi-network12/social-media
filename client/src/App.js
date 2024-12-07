@@ -9,6 +9,9 @@ import Gaming from './pages/Gaming/Gaming';
 import Notification from './pages/Notification/Notification';
 import Menu from './pages/Menu/Menu';
 import Message from './pages/Message/Message';
+import Login from './AuthFolder/Login';
+import SignUp from './AuthFolder/SignUp';
+import PrivateRoute from './private/PrivateRoute';
 
 function App() {
   return (
@@ -40,15 +43,22 @@ function AppWithNavbar() {
       {pagesWithNavbar.includes(location.pathname) && <MainNavbar />}
 
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/watch' element={<Watch />} />
-        <Route path='/marketplace' element={<Marketplace />} />
-        <Route path='/groups' element={<Groups />} />
-        <Route path='/gaming' element={<Gaming />} />
-        <Route path='/notification' element={<Notification />} />
-        <Route path='/menu' element={<Menu />} />
-        <Route path='/message' element={<Message />} />
-        <Route path='/friend-request' element={<Message />} />
+        {/* Public routes (no authentication required) */}
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<SignUp />} />
+
+        {/* Protected routes wrapped with PrivateRoute */}
+        <Route element={<PrivateRoute />}>
+          <Route path='/' element={<Home />} />
+          <Route path='/watch' element={<Watch />} />
+          <Route path='/marketplace' element={<Marketplace />} />
+          <Route path='/groups' element={<Groups />} />
+          <Route path='/gaming' element={<Gaming />} />
+          <Route path='/notification' element={<Notification />} />
+          <Route path='/menu' element={<Menu />} />
+          <Route path='/message' element={<Message />} />
+          <Route path='/friend-request' element={<Message />} />
+        </Route>
       </Routes>
     </div>
   );

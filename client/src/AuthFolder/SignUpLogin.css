@@ -1,0 +1,121 @@
+/* SignUpLogin.css */
+
+.abc123_signup-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f5f6f7;
+    border-radius: 10px;
+}
+
+.abc123_signup-title {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #3b5998;
+}
+
+.abc123_signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.abc123_signup-form h3 {
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+}
+
+.abc123_name-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.abc123_name-inputs input {
+    width: 48%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.abc123_dob-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.abc123_dob-section label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.abc123_dob-selectors {
+    display: flex;
+    gap: 10px;
+}
+
+.abc123_dob-selectors select {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.abc123_gender-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.abc123_gender-section label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.abc123_gender-section input {
+    margin-right: 10px;
+}
+
+.abc123_contact-password-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.abc123_contact-password-section input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.abc123_signup-button {
+    padding: 15px;
+    background-color: #3b5998;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.abc123_signup-button:hover {
+    background-color: #365899;
+}
+
+.abc123_signup-footer {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.abc123_signup-footer a {
+    text-decoration: none;
+    color: #3b5998;
+}
+
+.abc123_signup-footer a:hover {
+    text-decoration: underline;
+}
