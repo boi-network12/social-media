@@ -4,7 +4,7 @@ import Loading from '../Loading/Loading'; // Import Loading Component
 // create Context
 export const AuthContext = createContext();
 
-const SERVER_URI = "http://192.168.51.4:5000/api";
+const SERVER_URI = "http://192.168.162.4:5000/api";
 
 // Provider component
 export const AuthProvider = ({ children }) => {
@@ -62,7 +62,10 @@ export const AuthProvider = ({ children }) => {
             }
 
         } catch (error) {
-            console.error('Error during registration:', error || error.message);
+            console.error('Error during registration:', error || error.message || error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+            }
             alert('An error occurred during registration. Please try again.');
         } finally {
             setLoading(false);

@@ -26,8 +26,14 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         try {
             const { day, month, year } = formData.dateOfBirth;
+            if (!day || !month || !year) {
+                alert("Please provide a complete date of birth.");
+                return;
+            }
+
             const formattedDateOfBirth = new Date(`${year}-${month}-${day}`);
             const updatedFormData = { ...formData, dateOfBirth: formattedDateOfBirth };
 
@@ -35,8 +41,7 @@ const SignUp = () => {
             await registerUser(updatedFormData);
             navigate("/");
         } catch (error) {
-            console.error("An error occurred during registration:", error);
-            // Optionally, you can set an error state here to display an error message to the user
+            console.error("Error during registration:", error);
         } finally {
             setLoading(false);
         }
