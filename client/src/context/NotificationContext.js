@@ -5,8 +5,6 @@ import { useAuth } from "./authContext";
 // Create the Context for Notifications
 export const NotificationContext = createContext();
 
-
-
 // Provider component for Notifications
 export const NotificationProvider = ({ children }) => {
     const [notifications, setNotifications] = useState([]);
@@ -14,8 +12,6 @@ export const NotificationProvider = ({ children }) => {
     const [error, setError] = useState(null);
 
     const { user } = useAuth(); // Use the Auth context to get user data
-
-
 
     // Fetch notifications when the user is authenticated
     useEffect(() => {
@@ -32,7 +28,7 @@ export const NotificationProvider = ({ children }) => {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     },
                 });
 
@@ -41,7 +37,7 @@ export const NotificationProvider = ({ children }) => {
                 }
 
                 const data = await response.json();
-                console.log("Fetched notifications", data.statusText);
+                console.log("Fetched notifications", data);
 
                 setNotifications(data);
                 setError(null);
@@ -56,14 +52,14 @@ export const NotificationProvider = ({ children }) => {
         fetchNotifications();
     }, [user]);
 
-    // mark as read function
+    // Mark as read function
     const markAsRead = async (notificationId) => {
         try {
             const response = await fetch(`${config.SERVER_URI}/notifications/mark-as-read/${notificationId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 },
             });
 
@@ -79,13 +75,10 @@ export const NotificationProvider = ({ children }) => {
                         : notification
                 )
             );
-
         } catch (error) {
-
+            console.error("Error marking notification as read:", error);
         }
-    }
-
-    // Re-fetch notifications whenever the user changes
+    };
 
     return (
         <NotificationContext.Provider value={{ notifications, loading, error, markAsRead }}>

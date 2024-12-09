@@ -5,8 +5,6 @@ import config from "../config";
 // create Context
 export const AuthContext = createContext();
 
-
-
 // Provider component
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -14,18 +12,11 @@ export const AuthProvider = ({ children }) => {
 
     // check if the user is already authenticated on initial load
     useEffect(() => {
-        const savedUser = sessionStorage.getItem("user") ? JSON.parse(sessionStorage.getItem("user")) : null;
-        const savedToken = sessionStorage.getItem('token');
+        const localUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
+        const localToken = localStorage.getItem('token');
 
-        if (savedUser && savedToken) {
-            setUser(savedUser);
-        } else {
-            const localUser = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null;
-            const localToken = localStorage.getItem("token");
-
-            if (localUser && localToken) {
-                setUser(localUser);
-            }
+        if (localUser && localToken) {
+            setUser(localUser);
         }
 
         setLoading(false);
@@ -49,10 +40,7 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 const { token, user } = data;
 
-                // Save user data and token in sessionStorage and localStorage
-                sessionStorage.setItem('token', token);
-                sessionStorage.setItem('user', JSON.stringify(user));
-
+                // Save user data and token in localStorage
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
 
@@ -71,9 +59,7 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }
-
-
+    };
 
     const loginUser = async (loginData) => {
         setLoading(true);
@@ -93,10 +79,7 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 const { token, user } = data;
 
-                // Save user data and token in sessionStorage and localStorage
-                sessionStorage.setItem('token', token);
-                sessionStorage.setItem('user', JSON.stringify(user));
-
+                // Save user data and token in localStorage
                 localStorage.setItem('token', token);
                 localStorage.setItem('user', JSON.stringify(user));
 
@@ -112,19 +95,15 @@ export const AuthProvider = ({ children }) => {
         } catch (error) {
             console.error('Error during login:', error || error.message);
             alert('An error occurred during registration. Please try again.');
-            return false
+            return false;
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     // Logout user
     const logoutUser = () => {
         setLoading(true);
-
-
-        sessionStorage.removeItem('token');
-        sessionStorage.removeItem('user');
 
         localStorage.removeItem('token');
         localStorage.removeItem('user');

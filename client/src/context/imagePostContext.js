@@ -1,9 +1,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useAuth } from "./authContext";
-import config from "../config"
+import config from "../config";
 
 export const PostContext = createContext();
-
 
 export const PostProvider = ({ children }) => {
     const { user } = useAuth();
@@ -17,7 +16,7 @@ export const PostProvider = ({ children }) => {
         setLoading(true);
 
         try {
-            const token = sessionStorage.getItem("token");
+            const token = localStorage.getItem("token");
 
             if (!token) {
                 console.error("No token available.");
@@ -47,17 +46,12 @@ export const PostProvider = ({ children }) => {
         }
     }, [user]);
 
-
-
-    // create a new post 
+    // Create a new post
     const createPost = async (formData) => {
         setLoading(true);
         try {
-
-            const token = sessionStorage.getItem("token");
+            const token = localStorage.getItem("token");
             console.log("Token:", token);
-
-
 
             const response = await fetch(`${config.SERVER_URI}/image-post`, {
                 method: "POST",
@@ -84,15 +78,14 @@ export const PostProvider = ({ children }) => {
         }
     };
 
-
-    // Delete a post 
+    // Delete a post
     const deletePost = async (postId) => {
         setLoading(true);
         try {
             const response = await fetch(`${config.SERVER_URI}/image-post/${postId}`, {
                 method: "DELETE",
                 headers: {
-                    Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
                 },
             });
 
@@ -110,7 +103,7 @@ export const PostProvider = ({ children }) => {
 
     useEffect(() => {
         fetchPosts();
-    }, [user, fetchPosts])
+    }, [user, fetchPosts]);
 
     return (
         <PostContext.Provider
@@ -119,13 +112,12 @@ export const PostProvider = ({ children }) => {
                 loading,
                 createPost,
                 deletePost,
-                fetchPosts
+                fetchPosts,
             }}
         >
             {children}
         </PostContext.Provider>
-    )
-
+    );
 };
 
 export const usePosts = () => {
@@ -136,4 +128,4 @@ export const usePosts = () => {
     }
 
     return context;
-}
+};

@@ -5,7 +5,14 @@
     background-color: #fff;
     padding: 20px 10px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    max-height: 500px;
+    /* Set a fixed maximum height */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    width: 300px;
+    /* Adjust width as needed */
 }
+
 
 .NotificationDropdownWrapper::before {
     content: "";

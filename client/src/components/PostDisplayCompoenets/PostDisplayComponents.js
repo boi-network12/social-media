@@ -88,6 +88,26 @@ const PostDisplayComponents = () => {
         </div>
     );
 
+    const renderCaptionWithLinks = (caption) => {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+        const parts = caption.split(urlRegex);
+
+        return parts.map((part, index) => urlRegex.test(part) ? (
+            <a
+                href={part}
+                key={index}
+                target="_blank"
+                rel='noopener noreferrer'
+                style={{ color: '#1877f2', textDecoration: 'underline' }}
+            >
+                {part}
+            </a>
+        ) : (
+            part
+        ))
+    }
+
 
 
     return (
@@ -116,9 +136,9 @@ const PostDisplayComponents = () => {
                         </div>
                     </div>
 
-                    <div style={{ width: "100%", padding: "5px" }}>
-                        <p className={expandedPosts[post._id] ? '' : 'truncated'}>
-                            {post.caption || ''}
+                    <div style={{ width: "100%", padding: "5px", overflow: "hidden" }}>
+                        <p style={{ width: "100%" }} className={expandedPosts[post._id] ? '' : 'truncated'}>
+                            {renderCaptionWithLinks(post.caption) || ''}
                         </p>
                         {post.caption && post.caption.length > 100 && (
                             <Link onClick={() => toggleReadMore(post._id)}>

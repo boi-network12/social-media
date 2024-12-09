@@ -15,7 +15,7 @@
     bottom: 0;
     background: #fff;
     left: 0;
-    width: 100%;
+    width: 30%;
     border-radius: 10px 10px 0 0;
     height: 70%;
     padding: 10px 0 0;
@@ -37,4 +37,19 @@
     border: none;
     border-radius: 2px;
     cursor: grab;
+}
+
+
+/* Mobile devices */
+@media (max-width: 767px) {
+    .BottomSheetOverlay .BottomSheetWrapper {
+        width: 100%;
+    }
+}
+
+/* Tablet devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .BottomSheetOverlay .BottomSheetWrapper {
+        width: 50%;
+    }
 }

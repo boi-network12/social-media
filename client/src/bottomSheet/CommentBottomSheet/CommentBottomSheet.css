@@ -19,7 +19,7 @@
 }
 
 .CommentWrapperBottomSheet>form input {
-    width: 40%;
+    width: 80%;
     padding: 10px;
     background: #ddd;
     border: none;
@@ -102,13 +102,13 @@
 /* Mobile devices */
 @media (max-width: 767px) {
     .CommentWrapperBottomSheet>form input {
-        width: 70%;
+        width: 80%;
     }
 }
 
 /* Tablet devices */
 @media (min-width: 768px) and (max-width: 1024px) {
     .CommentWrapperBottomSheet>form input {
-        width: 50%;
+        width: 80%;
     }
 }
