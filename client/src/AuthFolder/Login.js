@@ -25,9 +25,8 @@ const Login = () => {
 
             if (response) {
                 navigate('/');
-            } else {
-                alert("Login failed. Please check your credentials.");
             }
+
         } catch (error) {
             console.error("An error occurred during login:", error);
             alert("An unexpected error occurred. Please try again later.");

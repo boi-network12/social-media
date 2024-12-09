@@ -8,7 +8,7 @@ const NotificationList = ({ notifications, markAsRead }) => {
         <ul className="notificationUList">
             {notifications.map((notification) => (
                 <li
-                    key={notification.id}
+                    key={notification._id}
                     onClick={() => markAsRead(notification._id)}
                     style={{
                         cursor: 'pointer',

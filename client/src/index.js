@@ -5,14 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/authContext';
 import { NotificationProvider } from "./context/NotificationContext";
+import { PostProvider } from './context/imagePostContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthProvider>
-      <NotificationProvider>
-        <App />
-      </NotificationProvider>
+      <PostProvider>
+        <NotificationProvider>
+          <App />
+        </NotificationProvider>
+      </PostProvider>
     </AuthProvider>
   </React.StrictMode>
 );

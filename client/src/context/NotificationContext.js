@@ -21,16 +21,14 @@ export const NotificationProvider = ({ children }) => {
     // Fetch notifications when the user is authenticated
     useEffect(() => {
         const fetchNotifications = async () => {
-            console.log("User in NotificationProvider:", user);
             if (!user || !user.id) {
+                console.error("User is invalid", user);
                 setError("User ID is missing or undefined");
                 setLoading(false);
                 return;
             }
 
             try {
-                console.log("Fetching notification for user ID: ", user.id);
-
                 const response = await fetch(`${config.SERVER_URI}/notifications/${user.id}`, {
                     method: 'GET',
                     headers: {
@@ -44,8 +42,10 @@ export const NotificationProvider = ({ children }) => {
                 }
 
                 const data = await response.json();
+                console.log("Fetched notifications", data);
+
                 setNotifications(data);
-                setError(null); // Clear any previous errors
+                setError(null);
             } catch (err) {
                 setError(err.message);
                 console.error('Error fetching notifications:', err);
@@ -53,7 +53,6 @@ export const NotificationProvider = ({ children }) => {
                 setLoading(false);
             }
         };
-
 
         fetchNotifications();
     }, [user]);

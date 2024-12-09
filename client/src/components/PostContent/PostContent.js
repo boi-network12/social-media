@@ -9,6 +9,7 @@ const PostContent = () => {
     const { user } = useAuth();
     const [isModalOpen, setIsModalOpen] = useState(false)
 
+
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
@@ -43,7 +44,7 @@ const PostContent = () => {
                     <span>live video</span>
                 </p>
             </div>
-            {isModalOpen && <PostContentModal onClose={handleModalClose} />}
+            {isModalOpen && <PostContentModal onClose={handleModalClose} user={user} humanAvatar={humanAvatar} />}
         </div>
     )
 }

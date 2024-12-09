@@ -103,13 +103,13 @@ const PostDisplayComponents = () => {
                         <div
                             className='postDisplayTopHeader'
                         >
-                            <p className='postDisplayTopHeaderUserInfo'>
+                            <div className='postDisplayTopHeaderUserInfo'>
                                 <img src={component.avatarImage} alt={component.userName} />
                                 <aside>
                                     <Link to="/">{component.userName}</Link>
                                     <span>{component.time}</span>
                                 </aside>
-                            </p>
+                            </div>
 
                             <div
                                 className='postDisplayBtnFunction'
