@@ -8,6 +8,16 @@
     padding: 10px;
 }
 
+.truncated {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    /* Change the number to control how many lines are visible */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
 .PostDisplayComponentsWrapper .postDisplayTopHeader {
     width: 100%;
     display: flex;
@@ -28,6 +38,7 @@
     height: 45px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid #ddd;
 }
 
 .PostDisplayComponentsWrapper .postDisplayTopHeader>.postDisplayTopHeaderUserInfo>aside {
@@ -44,7 +55,8 @@
 
 .PostDisplayComponentsWrapper .postDisplayTopHeader>.postDisplayTopHeaderUserInfo>aside>span {
     color: #333;
-    font-size: 12px;
+    font-size: 10px;
+    margin-bottom: 5px;
     font-weight: 300;
 }
 
@@ -99,37 +111,93 @@
     overflow: hidden;
 }
 
-.content.single-image {
-    grid-template-columns: 1fr;
-}
-
-.content.two-images {
+.PostDisplayComponentsWrapper .content.four-images {
     grid-template-columns: 1fr 1fr;
+    /* Two columns */
+    grid-template-rows: repeat(2, 200px);
+    /* Two rows, each row with 2 images */
 }
 
-.content.three-images {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(2, 1fr);
-    grid-template-areas:
-        "img1 img2"
-        "img1 img3";
-}
-
-.content.three-images img:first-child {
-    grid-area: img1;
-}
-
-.content.three-images img:nth-child(2) {
-    grid-area: img2;
-}
-
-.content.three-images img:nth-child(3) {
-    grid-area: img3;
-}
-
-.content img {
+.PostDisplayComponentsWrapper .content img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 5px;
+}
+
+/* Ensure proper layout for 1 image in collage */
+.PostDisplayComponentsWrapper .content.single-image img {
+    height: 300px;
+}
+
+/* Ensure height for 2 images in 1 row */
+.PostDisplayComponentsWrapper .content.two-images img {
+    height: 200px;
+}
+
+/* Ensure height for 3 images */
+.PostDisplayComponentsWrapper .content.three-images img {
+    height: 200px;
+}
+
+/* Ensure height for 4 images */
+.PostDisplayComponentsWrapper .content.four-images img {
+    height: 200px;
+}
+
+
+.PostDisplayComponentsWrapper .content.three-images img:first-child {
+    grid-area: img1;
+}
+
+.PostDisplayComponentsWrapper .content.three-images img:nth-child(2) {
+    grid-area: img2;
+}
+
+.PostDisplayComponentsWrapper .content.three-images img:nth-child(3) {
+    grid-area: img3;
+}
+
+.PostDisplayComponentsWrapper .content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.image-preview-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.image-preview-modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.image-preview-modal-content img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.image-preview-modal button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
 }

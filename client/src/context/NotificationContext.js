@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import Loading from "../Loading/Loading"; // Import Loading Component
 import config from "../config";
 import { useAuth } from "./authContext";
 
@@ -42,7 +41,7 @@ export const NotificationProvider = ({ children }) => {
                 }
 
                 const data = await response.json();
-                console.log("Fetched notifications", data);
+                console.log("Fetched notifications", data.statusText);
 
                 setNotifications(data);
                 setError(null);
@@ -90,7 +89,7 @@ export const NotificationProvider = ({ children }) => {
 
     return (
         <NotificationContext.Provider value={{ notifications, loading, error, markAsRead }}>
-            {loading ? <Loading /> : children}
+            {children}
         </NotificationContext.Provider>
     );
 };

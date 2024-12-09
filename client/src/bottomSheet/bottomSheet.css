@@ -1,0 +1,40 @@
+.BottomSheetOverlay {
+    position: fixed;
+    z-index: 3000;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.BottomSheetOverlay .BottomSheetWrapper {
+    position: absolute;
+    bottom: 0;
+    background: #fff;
+    left: 0;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+    height: 70%;
+    padding: 10px 0 0;
+}
+
+.BottomSheetOverlay .BottomSheetWrapper .BottomSheetHeader {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    height: 10px;
+    width: 100%;
+}
+
+.BottomSheetOverlay .BottomSheetWrapper .BottomSheetHeader button {
+    height: 5px;
+    background: #ddd;
+    width: 100px;
+    border: none;
+    border-radius: 2px;
+    cursor: grab;
+}

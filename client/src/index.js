@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { AuthProvider } from './context/authContext';
 import { NotificationProvider } from "./context/NotificationContext";
 import { PostProvider } from './context/imagePostContext';
+import { CommentProvider } from './context/CommentContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <AuthProvider>
       <PostProvider>
         <NotificationProvider>
-          <App />
+          <CommentProvider>
+            <App />
+          </CommentProvider>
         </NotificationProvider>
       </PostProvider>
     </AuthProvider>

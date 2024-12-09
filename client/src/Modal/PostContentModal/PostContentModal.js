@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react'
 import "./PostContentModal.css"
 import { FaPlus, FaTrash } from "react-icons/fa"
 import { usePosts } from '../../context/imagePostContext';
+import Loading from '../../Loading/Loading';
 
 const PostContentModal = ({ onClose, user, humanAvatar }) => {
   const { createPost } = usePosts();
@@ -9,6 +10,7 @@ const PostContentModal = ({ onClose, user, humanAvatar }) => {
   const [caption, setCaption] = useState("");
   const [audience, setAudience] = useState("public")
   const fileInputRef = useRef();
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -29,24 +31,38 @@ const PostContentModal = ({ onClose, user, humanAvatar }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!caption || selectedImages.length === 0) {
-      alert("Caption and at least one image are required.")
+
+    setLoading(true);
+    // Check if both caption and images are empty
+    if (!caption.trim() && selectedImages.length === 0) {
+      alert("Caption and at least one image are required.");
       return;
     }
 
     const formData = new FormData();
-    selectedImages.forEach((file) => formData.append("images", file)); // Append file objects
-    formData.append("caption", caption);
+
+    // Append images if any are selected
+    selectedImages.forEach((image) => formData.append("images", image));
+
+    // Append caption only if provided
+    if (caption.trim()) {
+      formData.append("caption", caption);
+    }
+
+    // Append audience (assuming it has a default value)
     formData.append("audience", audience);
+
+    console.log("FormData: ", formData);
 
     await createPost(formData);
 
-    //
+    // Reset form fields
     setSelectedImages([]);
     setCaption('');
     setAudience('private');
     onClose();
-  }
+    setLoading(false);
+  };
 
 
 
@@ -109,6 +125,7 @@ const PostContentModal = ({ onClose, user, humanAvatar }) => {
 
         {/* this is a place it will display the selected image */}
       </div>
+      {loading && <Loading />}
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { useAuth } from "./authContext";
 import config from "../config"
-import Loading from "../Loading/Loading";
 
 export const PostContext = createContext();
 
@@ -123,7 +122,7 @@ export const PostProvider = ({ children }) => {
                 fetchPosts
             }}
         >
-            {loading ? <Loading /> : children}
+            {children}
         </PostContext.Provider>
     )
 
